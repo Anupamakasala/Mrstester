@@ -102,20 +102,57 @@ namespace turnup_automation
 
             Thread.Sleep(2000);
 
+            // Check if material record has been updated
+            IWebElement editButton = driver.FindElement(By.XPath("//*[@id='tmsGrid']/div[3]/table/tbody/tr[last()]/td[5]/a[1]"));
+            editButton.Click();
+
+            // update code textbox value
+            IWebElement codeTextbox2 = driver.FindElement(By.Id("Code"));
+            codeTextbox2.Clear();
+            codeTextbox2.SendKeys("BBB222");
+
+            // update description textbox value
+            IWebElement descriptionTextbox2 = driver.FindElement(By.Id("Description"));
+            descriptionTextbox2.Clear();
+            descriptionTextbox2.SendKeys("Known Material");
+
+            Thread.Sleep(2000);
+            // update price per unit textbox value
+            IWebElement priceInputTag2 = driver.FindElement(By.XPath("//*[@id='TimeMaterialEditForm']/div/div[4]/div/span[1]/span/input[1]"));
+            priceInputTag2.SendKeys("0");
+
+            // Click on save button
+            IWebElement saveButton2 = driver.FindElement(By.Id("SaveButton"));
+            saveButton2.Click();
+
+            // Pause the automation script for 2 seconds
+            Thread.Sleep(2000);
+
+            // Click on go to last page button
+            IWebElement goToLastPageButton2 = driver.FindElement(By.XPath("//*[@id='tmsGrid']/div[4]/a[4]"));
+            goToLastPageButton2.Click();
+
+            // Check if material record has been updated
+            IWebElement updatedCode = driver.FindElement(By.XPath("//*[@id='tmsGrid']/div[3]/table/tbody/tr[last()]/td[1]"));
+
+            if (updatedCode.Text == "BBB222")
+            {
+                Console.WriteLine("Existing material record updated successfully");
+            }
+            else
+            {
+                Console.WriteLine("Existing material record hasn't been updated");
+            }
+
+            Thread.Sleep(2000);
+
             // Check if material record can be deleted
             IWebElement Delete = driver.FindElement(By.XPath("//*[@id='tmsGrid']/div[3]/table/tbody/tr[last()]/td[5]/a[2]"));
             Delete.Click();
 
             Thread.Sleep(1000);
 
-
             driver.SwitchTo().Alert().Accept();
-
-
-
-
-
-
 
         }
     }
