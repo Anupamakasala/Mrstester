@@ -1,53 +1,18 @@
 ﻿using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
-using OpenQA.Selenium.Support.UI;
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 using System.Threading;
+using System.Threading.Tasks;
 
-namespace turnup_automation
+namespace turnup_automation.Pages
 {
-    internal class Program
+    public class TMPage
     {
-        static void Main(string[] args)
+        public void CreateTM(IWebDriver driver)
         {
-            // Open chrome browser
-            IWebDriver driver = new ChromeDriver();
-
-            // launch turn up portal
-            driver.Navigate().GoToUrl("http://horse.industryconnect.io/Account/Login?ReturnUrl=%2f");
-            driver.Manage().Window.Maximize();
-
-            // identify username textbox and enter valid username
-            IWebElement userName = driver.FindElement(By.Id("UserName"));
-            userName.SendKeys("hari");
-
-            // identify password textbox and enter valid password
-            IWebElement password = driver.FindElement(By.Id("Password"));
-            password.SendKeys("123123");
-
-            // identify login button and click
-            IWebElement login = driver.FindElement(By.XPath("//*[@id='loginForm']/form/div[3]/input[1]"));
-            login.Click();
-
-            // navigate to home page and check if user has logged in Successfully
-            IWebElement helloHari = driver.FindElement(By.XPath("//*[@id='logoutForm']/ul/li/a"));
-
-            if (helloHari.Text == "Hello hari!")
-            {
-                Console.WriteLine("login successful, Test passed");
-            }
-            else
-            {
-                Console.WriteLine("login failed, Test failed");
-            }
-
-            // Click on Administration tab
-            IWebElement administrationTab = driver.FindElement(By.XPath("/html/body/div[3]/div/div/ul/li[5]/a"));
-            administrationTab.Click();
-
-            // Select Time and Material from the dropdown list
-            IWebElement tmOption = driver.FindElement(By.XPath("/html/body/div[3]/div/div/ul/li[5]/ul/li[3]/a"));
-            tmOption.Click();
 
             // Click on create new button
             IWebElement createButton = driver.FindElement(By.XPath("//*[@id='container']/p/a"));
@@ -62,7 +27,7 @@ namespace turnup_automation
             //SelectElement materialOption = new SelectElement(driver.FindElement(By.XPath("//*[@id='TimeMaterialEditForm']/div/div[1]/div/span[1]/span")));
             //materialOption.SelectByText("Material");
 
-            IWebElement materialOption = driver.FindElement(By.XPath(  "//*[@id='TypeCode_option_selected']"));
+            IWebElement materialOption = driver.FindElement(By.XPath("//*[@id='TypeCode_option_selected']"));
             materialOption.Click();
 
             // Identify code textbox and enter a code
@@ -101,7 +66,10 @@ namespace turnup_automation
             }
 
             Thread.Sleep(2000);
+        }
 
+        public void EditTM(IWebDriver driver)
+        {
             // Check if material record has been updated
             IWebElement editButton = driver.FindElement(By.XPath("//*[@id='tmsGrid']/div[3]/table/tbody/tr[last()]/td[5]/a[1]"));
             editButton.Click();
@@ -146,6 +114,10 @@ namespace turnup_automation
 
             Thread.Sleep(2000);
 
+        }
+
+        public void DeleteTM(IWebDriver driver)
+        {
             // Check if material record can be deleted
             IWebElement Delete = driver.FindElement(By.XPath("//*[@id='tmsGrid']/div[3]/table/tbody/tr[last()]/td[5]/a[2]"));
             Delete.Click();
