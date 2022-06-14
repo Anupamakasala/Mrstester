@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using turnup_automation.Utilities;
 
 namespace turnup_automation.Pages
 {
@@ -17,6 +18,8 @@ namespace turnup_automation.Pages
             // Click on create new button
             IWebElement createButton = driver.FindElement(By.XPath("//*[@id='container']/p/a"));
             createButton.Click();
+
+            WaitHelpers.WaitToBeClickable(driver, "XPath", "//*[@id='TimeMaterialEditForm']/div/div[1]/div/span[1]", 2);
 
             // Select Material from typecode dropdown
             IWebElement typeDropdown = driver.FindElement(By.XPath("//*[@id='TimeMaterialEditForm']/div/div[1]/div/span[1]"));
