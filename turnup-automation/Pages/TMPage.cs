@@ -1,4 +1,5 @@
-﻿using OpenQA.Selenium;
+﻿using NUnit.Framework;
+using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using System;
 using System.Collections.Generic;
@@ -59,14 +60,16 @@ namespace turnup_automation.Pages
             // Check if material record has been created
             IWebElement newCode = driver.FindElement(By.XPath("//*[@id='tmsGrid']/div[3]/table/tbody/tr[last()]/td[1]"));
 
-            if (newCode.Text == "AAA111")
-            {
-                Console.WriteLine("New material record created successfully");
-            }
-            else
-            {
-                Console.WriteLine("Material record hasn't been created");
-            }
+            //if (newCode.Text == "AAA111")
+            //{
+            //    Assert.Pass("New material record created successfully");
+            //}
+            //else
+            //{
+            //    Assert.Fail("Material record hasn't been created");
+            //}
+
+            Assert.That(newCode.Text == "AAA111", "Material record hasn't been created");
 
         }
 
@@ -107,14 +110,16 @@ namespace turnup_automation.Pages
             // Check if material record has been updated
             IWebElement updatedCode = driver.FindElement(By.XPath("//*[@id='tmsGrid']/div[3]/table/tbody/tr[last()]/td[1]"));
 
-            if (updatedCode.Text == "BBB222")
-            {
-                Console.WriteLine("Existing material record updated successfully");
-            }
-            else
-            {
-                Console.WriteLine("Existing material record hasn't been updated");
-            }
+            //if (updatedCode.Text == "BBB222")
+            //{
+            //    Assert.Pass("Existing material record updated successfully");
+            //}
+            //else
+            //{
+            //    Assert.Fail("Existing material record hasn't been updated");
+            //}
+
+            Assert.That(updatedCode.Text == "BBB222", "Existing material record hasn't been updated");
 
         }
 
@@ -126,9 +131,7 @@ namespace turnup_automation.Pages
 
             driver.SwitchTo().Alert().Accept();
 
-            Console.WriteLine("Existing material record has been deleted successfully");
-
-            driver.Quit();
+            Assert.Pass("Existing material record has been deleted successfully");
 
         }
     }

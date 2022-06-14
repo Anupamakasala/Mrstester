@@ -1,4 +1,5 @@
-﻿using OpenQA.Selenium;
+﻿using NUnit.Framework;
+using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Support.UI;
 using System;
@@ -8,12 +9,15 @@ using turnup_automation.Utilities;
 
 namespace turnup_automation
 {
-    public class TM_Tests
+    [TestFixture]
+    public class TM_Tests : CommonDriver
     {
-        static void Main(string[] args)
+
+        [SetUp]
+        public void LoginActions()
         {
             // open chrome browser
-            IWebDriver driver = new ChromeDriver();
+            driver = new ChromeDriver();
 
             // login page object initialization and definition
             LoginPage loginPageObject = new LoginPage();
@@ -24,20 +28,42 @@ namespace turnup_automation
             HomePage homePageObject = new HomePage();
 
             homePageObject.GoToTMPage(driver);
+        }
 
+        [Test]
+        public void CreateTM()
+        {
             // tm page object initialization and definition
-            TMPage tmPageObject= new TMPage();
+            TMPage tmPageObject = new TMPage();
 
             // create TM
             tmPageObject.CreateTM(driver);
-            
-            // edit TM
-            tmPageObject.EditTM(driver);
-            
-            // delete TM
-            tmPageObject.DeleteTM(driver);
+        }
 
+
+        [Test]
+        public void EditTM()
+        {
+            // edit TM
+            TMPage tmPageObject = new TMPage();
+            tmPageObject.EditTM(driver);
+        }
+
+        [Test]
+        public void DeleteTM()
+        {
+            // delete TM
+            TMPage tmPageObject = new TMPage();
+            tmPageObject.DeleteTM(driver);
+        }
+
+        [TearDown]
+        public void CloseTestRun()
+        {
+            driver.Quit();
 
         }
+
     }
+
 }

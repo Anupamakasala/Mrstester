@@ -1,4 +1,5 @@
-﻿using OpenQA.Selenium;
+﻿using NUnit.Framework;
+using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using System;
 using System.Collections.Generic;
@@ -13,6 +14,20 @@ namespace turnup_automation.Pages
 
         public void GoToTMPage(IWebDriver driver)
         {
+
+            // navigate to home page and check if user has logged in Successfully
+            IWebElement helloHari = driver.FindElement(By.XPath("//*[@id='logoutForm']/ul/li/a"));
+
+            //if (helloHari.Text == "Hello hari!")
+            //{
+            //    Assert.Pass("login successful, Test passed");
+            //}
+            //else
+            //{
+            //    Assert.Fail("login failed, Test failed");
+            //}
+
+            Assert.That(helloHari.Text == "Hello hari!", "login failed, Test failed");
 
             // Click on Administration tab
             IWebElement administrationTab = driver.FindElement(By.XPath("/html/body/div[3]/div/div/ul/li[5]/a"));
