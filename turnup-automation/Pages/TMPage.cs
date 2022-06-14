@@ -25,10 +25,8 @@ namespace turnup_automation.Pages
             IWebElement typeDropdown = driver.FindElement(By.XPath("//*[@id='TimeMaterialEditForm']/div/div[1]/div/span[1]"));
             typeDropdown.Click();
 
-            Thread.Sleep(2000);
-
-            //SelectElement materialOption = new SelectElement(driver.FindElement(By.XPath("//*[@id='TimeMaterialEditForm']/div/div[1]/div/span[1]/span")));
-            //materialOption.SelectByText("Material");
+            // Wait till the material option is clickable
+            WaitHelpers.WaitToBeClickable(driver, "XPath", "//*[@id='TypeCode_option_selected']", 2);
 
             IWebElement materialOption = driver.FindElement(By.XPath("//*[@id='TypeCode_option_selected']"));
             materialOption.Click();
@@ -49,8 +47,10 @@ namespace turnup_automation.Pages
             IWebElement saveButton = driver.FindElement(By.Id("SaveButton"));
             saveButton.Click();
 
-            // Pause the automation script for 2 seconds
             Thread.Sleep(2000);
+
+            // Wait till the last page button is clickable
+            WaitHelpers.WaitToBeClickable(driver, "XPath", "//*[@id='tmsGrid']/div[4]/a[4]", 5);
 
             // Click on go to last page button
             IWebElement goToLastPageButton = driver.FindElement(By.XPath("//*[@id='tmsGrid']/div[4]/a[4]"));
@@ -68,7 +68,6 @@ namespace turnup_automation.Pages
                 Console.WriteLine("Material record hasn't been created");
             }
 
-            Thread.Sleep(2000);
         }
 
         public void EditTM(IWebDriver driver)
@@ -87,7 +86,7 @@ namespace turnup_automation.Pages
             descriptionTextbox2.Clear();
             descriptionTextbox2.SendKeys("Known Material");
 
-            Thread.Sleep(2000);
+
             // update price per unit textbox value
             IWebElement priceInputTag2 = driver.FindElement(By.XPath("//*[@id='TimeMaterialEditForm']/div/div[4]/div/span[1]/span/input[1]"));
             priceInputTag2.SendKeys("0");
@@ -96,8 +95,10 @@ namespace turnup_automation.Pages
             IWebElement saveButton2 = driver.FindElement(By.Id("SaveButton"));
             saveButton2.Click();
 
-            // Pause the automation script for 2 seconds
             Thread.Sleep(2000);
+
+            // Wait till the last page button is clickable
+            WaitHelpers.WaitToBeClickable(driver, "XPath", "//*[@id='tmsGrid']/div[4]/a[4]", 2);
 
             // Click on go to last page button
             IWebElement goToLastPageButton2 = driver.FindElement(By.XPath("//*[@id='tmsGrid']/div[4]/a[4]"));
@@ -115,8 +116,6 @@ namespace turnup_automation.Pages
                 Console.WriteLine("Existing material record hasn't been updated");
             }
 
-            Thread.Sleep(2000);
-
         }
 
         public void DeleteTM(IWebDriver driver)
@@ -125,9 +124,11 @@ namespace turnup_automation.Pages
             IWebElement Delete = driver.FindElement(By.XPath("//*[@id='tmsGrid']/div[3]/table/tbody/tr[last()]/td[5]/a[2]"));
             Delete.Click();
 
-            Thread.Sleep(1000);
-
             driver.SwitchTo().Alert().Accept();
+
+            Console.WriteLine("Existing material record has been deleted successfully");
+
+            driver.Quit();
 
         }
     }

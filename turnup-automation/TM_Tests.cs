@@ -37,10 +37,6 @@ namespace turnup_automation
             // delete TM
             tmPageObject.DeleteTM(driver);
 
-            WaitHelpers waitHelpers = new WaitHelpers();
-
-            waitHelpers.WaitForWebElement(driver, 2, "//*[@id='tmsGrid']/div[3]/table/tbody/tr[last()]/td[5]/a[2]");
-
 
         }
     }
