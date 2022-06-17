@@ -75,6 +75,17 @@ namespace turnup_automation.Pages
 
         public void EditTM(IWebDriver driver)
         {
+
+            // Wait till the last page button is clickable
+            WaitHelpers.WaitToBeClickable(driver, "XPath", "//*[@id='tmsGrid']/div[4]/a[4]", 5);
+
+            // Click on go to last page button
+            IWebElement goToLastPageButton = driver.FindElement(By.XPath("//*[@id='tmsGrid']/div[4]/a[4]"));
+            goToLastPageButton.Click();
+
+            // Wait till the edit button is visible
+            WaitHelpers.WaitToBeVisible(driver, "XPath", "//*[@id='tmsGrid']/div[3]/table/tbody/tr[last()]/td[5]/a[1]", 5);
+
             // Check if material record has been updated
             IWebElement editButton = driver.FindElement(By.XPath("//*[@id='tmsGrid']/div[3]/table/tbody/tr[last()]/td[5]/a[1]"));
             editButton.Click();
@@ -125,6 +136,17 @@ namespace turnup_automation.Pages
 
         public void DeleteTM(IWebDriver driver)
         {
+
+            // Wait till the last page button is clickable
+            WaitHelpers.WaitToBeVisible(driver, "XPath", "//*[@id='tmsGrid']/div[4]/a[4]", 5);
+
+            // Click on go to last page button
+            IWebElement goToLastPageButton = driver.FindElement(By.XPath("//*[@id='tmsGrid']/div[4]/a[4]"));
+            goToLastPageButton.Click();
+
+            // Wait till the delete button is visible
+            WaitHelpers.WaitToBeVisible(driver, "XPath", "//*[@id='tmsGrid']/div[3]/table/tbody/tr[last()]/td[5]/a[2]", 5);
+
             // Check if material record can be deleted
             IWebElement Delete = driver.FindElement(By.XPath("//*[@id='tmsGrid']/div[3]/table/tbody/tr[last()]/td[5]/a[2]"));
             Delete.Click();
