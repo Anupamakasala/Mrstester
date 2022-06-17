@@ -30,7 +30,7 @@ namespace turnup_automation
             homePageObject.GoToTMPage(driver);
         }
 
-        [Test]
+        [Test, Order(1)]
         public void CreateTM()
         {
             // tm page object initialization and definition
@@ -41,7 +41,7 @@ namespace turnup_automation
         }
 
 
-        [Test]
+        [Test, Order(2)]
         public void EditTM()
         {
             // edit TM
@@ -49,7 +49,7 @@ namespace turnup_automation
             tmPageObject.EditTM(driver);
         }
 
-        [Test]
+        [Test, Order(3)]
         public void DeleteTM()
         {
             // delete TM

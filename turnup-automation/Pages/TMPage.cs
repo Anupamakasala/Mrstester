@@ -27,6 +27,8 @@ namespace turnup_automation.Pages
             IWebElement typeCodeDropdown = driver.FindElement(By.XPath("//*[@id='TimeMaterialEditForm']/div/div[1]/div/span[1]"));
             typeCodeDropdown.Click();
 
+            WaitHelpers.WaitToBeClickable(driver, "XPath", "//*[@id='TypeCode_listbox']/li[1]", 2);
+
             IWebElement materialOption = driver.FindElement(By.XPath("//*[@id='TypeCode_listbox']/li[1]"));
             materialOption.Click();
             
@@ -95,8 +97,9 @@ namespace turnup_automation.Pages
             WaitHelpers.WaitToBeClickable(driver, "XPath", "//*[@id='tmsGrid']/div[3]/table/tbody/tr[last()]/td[3]", 2);
 
             IWebElement findNewRecord = driver.FindElement(By.XPath("//*[@id='tmsGrid']/div[3]/table/tbody/tr[last()]/td[3]"));
+            //*[@id="tmsGrid"]/div[3]/table/tbody/tr[6]/td[3]
 
-            if (findNewRecord.Text == "AAA1111")
+            if (findNewRecord.Text == "Unknown Material")
             {
                 // Wait till the edit button is visible
                 WaitHelpers.WaitToBeVisible(driver, "XPath", "//*[@id='tmsGrid']/div[3]/table/tbody/tr[last()]/td[5]/a[1]", 5);
