@@ -1,6 +1,7 @@
 ﻿using NUnit.Framework;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
+using OpenQA.Selenium.Support.UI;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,15 +24,12 @@ namespace turnup_automation.Pages
             WaitHelpers.WaitToBeClickable(driver, "XPath", "//*[@id='TimeMaterialEditForm']/div/div[1]/div/span[1]", 2);
 
             // Select Material from typecode dropdown
-            IWebElement typeDropdown = driver.FindElement(By.XPath("//*[@id='TimeMaterialEditForm']/div/div[1]/div/span[1]"));
-            typeDropdown.Click();
+            IWebElement typeCodeDropdown = driver.FindElement(By.XPath("//*[@id='TimeMaterialEditForm']/div/div[1]/div/span[1]"));
+            typeCodeDropdown.Click();
 
-            // Wait till the material option is clickable
-            WaitHelpers.WaitToBeClickable(driver, "XPath", "//*[@id='TypeCode_option_selected']", 2);
-
-            IWebElement materialOption = driver.FindElement(By.XPath("//*[@id='TypeCode_option_selected']"));
+            IWebElement materialOption = driver.FindElement(By.XPath("//*[@id='TypeCode_listbox']/li[1]"));
             materialOption.Click();
-
+            
             // Identify code textbox and enter a code
             IWebElement codeTextbox = driver.FindElement(By.Id("Code"));
             codeTextbox.SendKeys("AAA111");
@@ -42,7 +40,12 @@ namespace turnup_automation.Pages
 
             // Identify price per unit textbox and enter a code
             IWebElement priceInputTag = driver.FindElement(By.XPath("//*[@id='TimeMaterialEditForm']/div/div[4]/div/span[1]/span/input[1]"));
-            priceInputTag.SendKeys("50");
+            priceInputTag.Click();
+            Thread.Sleep(1000);
+
+            IWebElement pricePerUnit = driver.FindElement(By.XPath("//*[@id='Price']"));
+            pricePerUnit.Clear();
+            pricePerUnit.SendKeys("20");
 
             // Click on save button
             IWebElement saveButton = driver.FindElement(By.Id("SaveButton"));
@@ -59,6 +62,9 @@ namespace turnup_automation.Pages
 
             // Check if material record has been created
             IWebElement newCode = driver.FindElement(By.XPath("//*[@id='tmsGrid']/div[3]/table/tbody/tr[last()]/td[1]"));
+            IWebElement newTypeCode = driver.FindElement(By.XPath("//*[@id='tmsGrid']/div[3]/table/tbody/tr[last()]/td[2]"));
+            IWebElement newDescription = driver.FindElement(By.XPath("//*[@id='tmsGrid']/div[3]/table/tbody/tr[last()]/td[3]"));
+            IWebElement newPrice = driver.FindElement(By.XPath("//*[@id='tmsGrid']/div[3]/table/tbody/tr[last()]/td[4]"));
 
             //if (newCode.Text == "AAA111")
             //{
@@ -70,6 +76,9 @@ namespace turnup_automation.Pages
             //}
 
             Assert.That(newCode.Text == "AAA111", "Material record hasn't been created");
+            Assert.That(newTypeCode.Text == "M", "Material record hasn't been created");
+            Assert.That(newDescription.Text == "Unknown Material", "Material record hasn't been created");
+            Assert.That(newPrice.Text == "$20.00", "Material record hasn't been created");
 
         }
 
@@ -83,12 +92,24 @@ namespace turnup_automation.Pages
             IWebElement goToLastPageButton = driver.FindElement(By.XPath("//*[@id='tmsGrid']/div[4]/a[4]"));
             goToLastPageButton.Click();
 
-            // Wait till the edit button is visible
-            WaitHelpers.WaitToBeVisible(driver, "XPath", "//*[@id='tmsGrid']/div[3]/table/tbody/tr[last()]/td[5]/a[1]", 5);
+            WaitHelpers.WaitToBeClickable(driver, "XPath", "//*[@id='tmsGrid']/div[3]/table/tbody/tr[last()]/td[3]", 2);
 
-            // Check if material record has been updated
-            IWebElement editButton = driver.FindElement(By.XPath("//*[@id='tmsGrid']/div[3]/table/tbody/tr[last()]/td[5]/a[1]"));
-            editButton.Click();
+            IWebElement findNewRecord = driver.FindElement(By.XPath("//*[@id='tmsGrid']/div[3]/table/tbody/tr[last()]/td[3]"));
+
+            if (findNewRecord.Text == "AAA1111")
+            {
+                // Wait till the edit button is visible
+                WaitHelpers.WaitToBeVisible(driver, "XPath", "//*[@id='tmsGrid']/div[3]/table/tbody/tr[last()]/td[5]/a[1]", 5);
+
+                // Check if material record has been updated
+                IWebElement editButton = driver.FindElement(By.XPath("//*[@id='tmsGrid']/div[3]/table/tbody/tr[last()]/td[5]/a[1]"));
+                editButton.Click();
+
+            }
+            else
+            {
+                Assert.Fail("Record to be edited not found.");
+            }
 
             // update code textbox value
             IWebElement codeTextbox2 = driver.FindElement(By.Id("Code"));
@@ -103,7 +124,14 @@ namespace turnup_automation.Pages
 
             // update price per unit textbox value
             IWebElement priceInputTag2 = driver.FindElement(By.XPath("//*[@id='TimeMaterialEditForm']/div/div[4]/div/span[1]/span/input[1]"));
-            priceInputTag2.SendKeys("0");
+            priceInputTag2.Click();
+            Thread.Sleep(1000);
+
+            IWebElement pricePerUnit1 = driver.FindElement(By.XPath("//*[@id='Price']"));
+            pricePerUnit1.Clear();
+            Thread.Sleep(1000);
+            pricePerUnit1.SendKeys("10");
+            Thread.Sleep(1000);
 
             // Click on save button
             IWebElement saveButton2 = driver.FindElement(By.Id("SaveButton"));
@@ -120,6 +148,9 @@ namespace turnup_automation.Pages
 
             // Check if material record has been updated
             IWebElement updatedCode = driver.FindElement(By.XPath("//*[@id='tmsGrid']/div[3]/table/tbody/tr[last()]/td[1]"));
+            IWebElement updatedTypeCode = driver.FindElement(By.XPath("//*[@id='tmsGrid']/div[3]/table/tbody/tr[last()]/td[1]"));
+            IWebElement updatedDescription = driver.FindElement(By.XPath("//*[@id='tmsGrid']/div[3]/table/tbody/tr[last()]/td[1]"));
+            IWebElement updatedPrice = driver.FindElement(By.XPath("//*[@id='tmsGrid']/div[3]/table/tbody/tr[last()]/td[1]"));
 
             //if (updatedCode.Text == "BBB222")
             //{
@@ -131,6 +162,9 @@ namespace turnup_automation.Pages
             //}
 
             Assert.That(updatedCode.Text == "BBB222", "Existing material record hasn't been updated");
+            Assert.That(updatedTypeCode.Text == "M", "Material record hasn't been created");
+            Assert.That(updatedDescription.Text == "Known Material", "Material record hasn't been created");
+            Assert.That(updatedPrice.Text == "$10.00", "Material record hasn't been created");
 
         }
 
