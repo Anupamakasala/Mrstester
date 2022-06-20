@@ -87,7 +87,7 @@ namespace turnup_automation.Pages
             Assert.That(newPrice.Text == "$20.00", "Material record hasn't been created");
         }
 
-        public void EditTM(IWebDriver driver)
+        public void EditTM(IWebDriver driver, string description)
         {
 
             // Wait till the last page button is clickable
@@ -124,7 +124,7 @@ namespace turnup_automation.Pages
             // update description textbox value
             IWebElement descriptionTextbox2 = driver.FindElement(By.Id("Description"));
             descriptionTextbox2.Clear();
-            descriptionTextbox2.SendKeys("Known Material");
+            descriptionTextbox2.SendKeys(description);
 
             // update price per unit textbox value
             IWebElement priceInputTag2 = driver.FindElement(By.XPath("//*[@id='TimeMaterialEditForm']/div/div[4]/div/span[1]/span/input[1]"));

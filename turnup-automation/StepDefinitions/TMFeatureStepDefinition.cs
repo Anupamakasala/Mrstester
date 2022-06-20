@@ -59,10 +59,10 @@ namespace turnup_automation.StepDefinitions
 
         }
 
-        [When(@"I edit an existing time and material record")]
-        public void IEditAnExistingTimeAndMaterialRecord()
+        [When(@"I edit an existing time and material record '([^']*)'")]
+        public void IEditAnExistingTimeAndMaterialRecord(string description)
         {
-            tmPageObject.EditTM(driver);
+            tmPageObject.EditTM(driver, description);
         }
 
         [Then(@"The record should be updated succesfully")]
