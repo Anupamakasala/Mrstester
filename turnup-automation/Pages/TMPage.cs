@@ -55,6 +55,10 @@ namespace turnup_automation.Pages
 
             Thread.Sleep(2000);
 
+        }
+
+        public void CreateTMAssertion(IWebDriver driver)
+        {
             // Wait till the last page button is clickable
             WaitHelpers.WaitToBeClickable(driver, "XPath", "//*[@id='tmsGrid']/div[4]/a[4]", 5);
 
@@ -81,7 +85,6 @@ namespace turnup_automation.Pages
             Assert.That(newTypeCode.Text == "M", "Material record hasn't been created");
             Assert.That(newDescription.Text == "Unknown Material", "Material record hasn't been created");
             Assert.That(newPrice.Text == "$20.00", "Material record hasn't been created");
-
         }
 
         public void EditTM(IWebDriver driver)
@@ -141,6 +144,11 @@ namespace turnup_automation.Pages
 
             Thread.Sleep(5000);
 
+
+        }
+
+        public void EditTMAssertion(IWebDriver driver)
+        {
             // Click on go to last page button
             IWebElement goToLastPageButton3 = driver.FindElement(By.XPath("//*[@id='tmsGrid']/div[4]/a[4]/span"));
             goToLastPageButton3.Click();
@@ -164,7 +172,6 @@ namespace turnup_automation.Pages
             Assert.That(updatedTypeCode.Text == "M", "Material record hasn't been created");
             Assert.That(updatedDescription.Text == "Known Material", "Material record hasn't been created");
             Assert.That(updatedPrice.Text == "$10.00", "Material record hasn't been created");
-
         }
 
         public void DeleteTM(IWebDriver driver)
@@ -190,7 +197,34 @@ namespace turnup_automation.Pages
             Thread.Sleep(2000);
 
 
-            Assert.Pass("Existing material record has been deleted successfully");
+        }
+
+        public void DeleteTMAssertion(IWebDriver driver)
+        {
+
+            // Click on go to last page button
+            IWebElement goToLastPageButton3 = driver.FindElement(By.XPath("//*[@id='tmsGrid']/div[4]/a[4]/span"));
+            goToLastPageButton3.Click();
+
+            // Check if material record has been updated
+            IWebElement updatedCode = driver.FindElement(By.XPath("//*[@id='tmsGrid']/div[3]/table/tbody/tr[last()]/td[1]"));
+            IWebElement updatedTypeCode = driver.FindElement(By.XPath("//*[@id='tmsGrid']/div[3]/table/tbody/tr[last()]/td[1]"));
+            IWebElement updatedDescription = driver.FindElement(By.XPath("//*[@id='tmsGrid']/div[3]/table/tbody/tr[last()]/td[1]"));
+            IWebElement updatedPrice = driver.FindElement(By.XPath("//*[@id='tmsGrid']/div[3]/table/tbody/tr[last()]/td[1]"));
+
+            //if (updatedCode.Text == "BBB222")
+            //{
+            //    Assert.Pass("Existing material record updated successfully");
+            //}
+            //else
+            //{
+            //    Assert.Fail("Existing material record hasn't been updated");
+            //}
+
+            Assert.That(updatedCode.Text != "BBB222", "Existing material record hasn't been updated");
+            Assert.That(updatedTypeCode.Text != "M", "Material record hasn't been created");
+            Assert.That(updatedDescription.Text != "Known Material", "Material record hasn't been created");
+            Assert.That(updatedPrice.Text != "$10.00", "Material record hasn't been created");
 
         }
     }
