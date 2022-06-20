@@ -88,22 +88,21 @@ namespace turnup_automation.Pages
         {
 
             // Wait till the last page button is clickable
-            WaitHelpers.WaitToBeClickable(driver, "XPath", "//*[@id='tmsGrid']/div[4]/a[4]", 5);
+            //WaitHelpers.WaitToBeClickable(driver, "XPath", "//*[@id='tmsGrid']/div[4]/a[4]", 5);
+            Thread.Sleep(2000);
 
             // Click on go to last page button
-            IWebElement goToLastPageButton = driver.FindElement(By.XPath("//*[@id='tmsGrid']/div[4]/a[4]"));
-            goToLastPageButton.Click();
+            IWebElement goToLastPageButton2 = driver.FindElement(By.XPath("//*[@id='tmsGrid']/div[4]/a[4]/span"));
+            goToLastPageButton2.Click();
 
-            WaitHelpers.WaitToBeClickable(driver, "XPath", "//*[@id='tmsGrid']/div[3]/table/tbody/tr[last()]/td[3]", 2);
+            WaitHelpers.WaitToBeVisible(driver, "XPath", "//*[@id='tmsGrid']/div[3]/table/tbody/tr[last()]/td[3]", 2);
 
             IWebElement findNewRecord = driver.FindElement(By.XPath("//*[@id='tmsGrid']/div[3]/table/tbody/tr[last()]/td[3]"));
-            //*[@id="tmsGrid"]/div[3]/table/tbody/tr[6]/td[3]
+            Console.Write(findNewRecord.Text);
 
             if (findNewRecord.Text == "Unknown Material")
             {
-                // Wait till the edit button is visible
-                WaitHelpers.WaitToBeVisible(driver, "XPath", "//*[@id='tmsGrid']/div[3]/table/tbody/tr[last()]/td[5]/a[1]", 5);
-
+                
                 // Check if material record has been updated
                 IWebElement editButton = driver.FindElement(By.XPath("//*[@id='tmsGrid']/div[3]/table/tbody/tr[last()]/td[5]/a[1]"));
                 editButton.Click();
@@ -124,30 +123,27 @@ namespace turnup_automation.Pages
             descriptionTextbox2.Clear();
             descriptionTextbox2.SendKeys("Known Material");
 
-
             // update price per unit textbox value
             IWebElement priceInputTag2 = driver.FindElement(By.XPath("//*[@id='TimeMaterialEditForm']/div/div[4]/div/span[1]/span/input[1]"));
-            priceInputTag2.Click();
-            Thread.Sleep(1000);
+            priceInputTag2.Clear();
+            Thread.Sleep(2000);
+            priceInputTag2.SendKeys("10");
 
-            IWebElement pricePerUnit1 = driver.FindElement(By.XPath("//*[@id='Price']"));
-            pricePerUnit1.Clear();
-            Thread.Sleep(1000);
-            pricePerUnit1.SendKeys("10");
-            Thread.Sleep(1000);
+
+            //IWebElement pricePerUnit1 = driver.FindElement(By.XPath("//*[@id='Price']"));
+            //pricePerUnit1.Click();
+            //Thread.Sleep(2000);
+            //pricePerUnit1.SendKeys("10");
 
             // Click on save button
             IWebElement saveButton2 = driver.FindElement(By.Id("SaveButton"));
             saveButton2.Click();
 
-            Thread.Sleep(2000);
-
-            // Wait till the last page button is clickable
-            WaitHelpers.WaitToBeClickable(driver, "XPath", "//*[@id='tmsGrid']/div[4]/a[4]", 2);
+            Thread.Sleep(5000);
 
             // Click on go to last page button
-            IWebElement goToLastPageButton2 = driver.FindElement(By.XPath("//*[@id='tmsGrid']/div[4]/a[4]"));
-            goToLastPageButton2.Click();
+            IWebElement goToLastPageButton3 = driver.FindElement(By.XPath("//*[@id='tmsGrid']/div[4]/a[4]/span"));
+            goToLastPageButton3.Click();
 
             // Check if material record has been updated
             IWebElement updatedCode = driver.FindElement(By.XPath("//*[@id='tmsGrid']/div[3]/table/tbody/tr[last()]/td[1]"));
@@ -175,7 +171,7 @@ namespace turnup_automation.Pages
         {
 
             // Wait till the last page button is clickable
-            WaitHelpers.WaitToBeVisible(driver, "XPath", "//*[@id='tmsGrid']/div[4]/a[4]", 5);
+            Thread.Sleep(2000);
 
             // Click on go to last page button
             IWebElement goToLastPageButton = driver.FindElement(By.XPath("//*[@id='tmsGrid']/div[4]/a[4]"));
@@ -188,7 +184,11 @@ namespace turnup_automation.Pages
             IWebElement Delete = driver.FindElement(By.XPath("//*[@id='tmsGrid']/div[3]/table/tbody/tr[last()]/td[5]/a[2]"));
             Delete.Click();
 
+            Thread.Sleep(2000);
+
             driver.SwitchTo().Alert().Accept();
+            Thread.Sleep(2000);
+
 
             Assert.Pass("Existing material record has been deleted successfully");
 
