@@ -13,8 +13,6 @@ namespace turnup_automation.Pages
         public void CreateEmployee(IWebDriver driver)
         {
 
-
-
         }
 
         public void EditEmployee(IWebDriver driver)

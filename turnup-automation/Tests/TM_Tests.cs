@@ -10,10 +10,10 @@ using turnup_automation.Utilities;
 namespace turnup_automation.Tests
 {
     [TestFixture]
-    [Parallelizable]
     public class TM_Tests : CommonDriver
     {
         // Page object initialization
+        HomePage homePageObj = new HomePage();
         TMPage tmPageObject = new TMPage();
 
         [Test, Order(1), Description("Create time and material record with valid data")]
@@ -21,6 +21,7 @@ namespace turnup_automation.Tests
         {
 
             // create TM
+            homePageObj.GoToTMPage(driver);
             tmPageObject.CreateTM(driver);
         }
 
@@ -29,6 +30,7 @@ namespace turnup_automation.Tests
         public void EditTM()
         {
             // edit TM
+            homePageObj.GoToTMPage(driver);
             tmPageObject.EditTM(driver);
         }
 
@@ -36,6 +38,7 @@ namespace turnup_automation.Tests
         public void DeleteTM()
         {
             // delete TM
+            homePageObj.GoToTMPage(driver);
             tmPageObject.DeleteTM(driver);
         }
 

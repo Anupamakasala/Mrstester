@@ -17,10 +17,8 @@ namespace turnup_automation.Utilities
 
         // Page object initialization
         LoginPage loginPageObject = new LoginPage();
-        HomePage homePageObject = new HomePage();
 
-
-        [SetUp]
+        [OneTimeSetUp]
         public void LoginActions()
         {
             // open chrome browser
@@ -30,12 +28,9 @@ namespace turnup_automation.Utilities
 
             loginPageObject.LoginSteps(driver);
 
-            // home page object initialization and definition
-
-            homePageObject.GoToTMPage(driver);
         }
 
-        [TearDown]
+        [OneTimeTearDown]
         public void CloseTestRun()
         {
             driver.Quit();

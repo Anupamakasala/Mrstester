@@ -11,30 +11,31 @@ using turnup_automation.Utilities;
 namespace turnup_automation.Tests
 {
     [TestFixture]
-    [Parallelizable]
     public class Employee_Tests : CommonDriver
     {
 
         // Page object initialization
+        HomePage homePageObj = new HomePage();
         EmployeePage employeePageObj = new EmployeePage();
 
         [Test, Order(1), Description("Create employee record with valid data")]
         public void CreateEmployee()
         {
+            homePageObj.GoToEmployeePage(driver);
             employeePageObj.CreateEmployee(driver);
         }
 
         [Test, Order(2), Description("Edit existing employee record with valid data")]
-        public void EditEmployye()
+        public void EditEmployee()
         {
-            EmployeePage employeePageObj = new EmployeePage();
+            homePageObj.GoToEmployeePage(driver);
             employeePageObj.EditEmployee(driver);
         }
 
         [Test, Order(1), Description("Delete existing employee record")]
-        public void DeleteEmployye()
+        public void DeleteEmployee()
         {
-            EmployeePage employeePageObj = new EmployeePage();
+            homePageObj.GoToEmployeePage(driver);
             employeePageObj.DeleteEmployee(driver);
         }
 
