@@ -16,6 +16,8 @@ namespace turnup_automation.Tests
         HomePage homePageObj = new HomePage();
         TMPage tmPageObject = new TMPage();
         private string description;
+        private string code;
+        private string price;
 
         [Test, Order(1), Description("Create time and material record with valid data")]
         public void CreateTM()
@@ -32,7 +34,7 @@ namespace turnup_automation.Tests
         {
             // edit TM
             homePageObj.GoToTMPage(driver);
-            tmPageObject.EditTM(driver, description);
+            tmPageObject.EditTM(driver, description, code, price);
         }
 
         [Test, Order(3), Description("Delete existing time and material record")]

@@ -14,6 +14,7 @@ namespace turnup_automation.Pages
 
         public void LoginSteps(IWebDriver driver)
         {
+            
             // maximise window
             driver.Manage().Window.Maximize();
 

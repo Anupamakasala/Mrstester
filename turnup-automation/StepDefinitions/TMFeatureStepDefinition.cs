@@ -14,7 +14,7 @@ using turnup_automation.Utilities;
 namespace turnup_automation.StepDefinitions
 {
     [Binding]
-    public class TMFeatureStepDefinition
+    public class TMFeatureStepDefinition : CommonDriver
     {
         // open chrome browser
         ChromeDriver driver = new ChromeDriver();
@@ -26,9 +26,6 @@ namespace turnup_automation.StepDefinitions
         [Given(@"I logged into turnup portal succesfully")]
         public void ILoggedIntournupPortalSuccesfully()
         {
-
-            // open chrome browser
-            driver = new ChromeDriver();
 
             // login page object initialization and definition
             loginPageObject.LoginSteps(driver);
@@ -59,16 +56,17 @@ namespace turnup_automation.StepDefinitions
 
         }
 
-        [When(@"I edit an existing time and material record '([^']*)'")]
-        public void IEditAnExistingTimeAndMaterialRecord(string description)
+        [When(@"I edit an existing time and material record '([^']*)' '([^']*)' '([^']*)'")]
+        public void IEditAnExistingTimeAndMaterialRecord(string p0, string p1, string p2)
         {
-            tmPageObject.EditTM(driver, description);
+            tmPageObject.EditTM(driver, p0, p1, p2);
         }
 
-        [Then(@"The record should be updated succesfully")]
-        public void TheRecordShouldBeUpdatedSuccesfully()
+        [Then(@"The record should be updated succesfully '([^']*)' '([^']*)' '([^']*)'")]
+        public void TheRecordShouldBeUpdatedSuccesfully(string p0, string p1, string p2)
         {
-            tmPageObject.EditTMAssertion(driver);
+            tmPageObject.EditTMAssertion(driver, p0, p1, p2);
+            driver.Quit();
         }
 
         [When(@"I delete an existing time and material record")]
